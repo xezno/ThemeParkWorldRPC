@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ThemeParkRPC
+namespace ThemeParkWorldRPC
 {
     // Class adapted from https://stackoverflow.com/a/50672487
     public class Memory
@@ -11,7 +11,6 @@ namespace ThemeParkRPC
         private static Process process;
         private static IntPtr processHandle;
 
-        private static int bytesWritten;
         private static int bytesRead;
 
         public static bool Attach(string processName)
