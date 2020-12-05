@@ -18,6 +18,8 @@ namespace ThemeParkRPC
              * +00876668: Ditto
              * +00FAA40D: Ditto
              * +00768F3D / 05C4D745?: "lobby" or "level", depending on whether the player is in lobby or not
+             * +00FAA40D: Previous load (if in lobby, this will be different to level name at 00871F74).
+             * +007CB360: Visitor count (only updates when info screen is shown)
              */
 
             discord = new Discord.Discord(784571542221750283, (ulong)Discord.CreateFlags.Default);
@@ -37,10 +39,11 @@ namespace ThemeParkRPC
             {
                 var cash = Memory.ReadMemory<int>(0x007CB2DC);
                 var level = Memory.ReadMemoryString(0x00871F74, 6);
+                var lastLoad = Memory.ReadMemoryString(0x00FAA40D, 6);
+                // var visitorCount = Memory.ReadMemory<int>(0x007CB360);
 
-                var lobbyStr = Memory.ReadMemoryString(0x05CCD745, 5);
-                Console.WriteLine(lobbyStr);
-                var inLobby = lobbyStr != "level";
+                var inLobby = cash == 0 || level != lastLoad;
+
                 UpdateActivity(cash, inLobby, level);
                 discord.RunCallbacks();
                 Thread.Sleep(1000);
