@@ -25,7 +25,7 @@ namespace ThemeParkWorldRPC {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tp_patched")]
+        [global::System.Configuration.DefaultSettingValueAttribute("tp")]
         public string ProcessName {
             get {
                 return ((string)(this["ProcessName"]));

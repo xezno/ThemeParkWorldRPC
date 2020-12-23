@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ProcessName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">tp_patched</Value>
+      <Value Profile="(Default)">tp</Value>
     </Setting>
     <Setting Name="UpdateDelay" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1000</Value>
