@@ -9,9 +9,17 @@ namespace ThemeParkWorldRPC
         private Discord.Discord discord;
         private long startTime;
 
+        public delegate void MessageEvent(object sender, TpwMessageEventArgs eventArgs);
+        public MessageEvent onMessage;
+
         public TpwRpc()
         {
             discord = new Discord.Discord(784571542221750283, (ulong)Discord.CreateFlags.Default);
+        }
+
+        private void Log(string message)
+        {
+            onMessage?.Invoke(this, new TpwMessageEventArgs(message));
         }
 
         public long GetUnixTime()
@@ -36,7 +44,7 @@ namespace ThemeParkWorldRPC
              * +05E6DAE0*: User index (saves folder prefixes, add one)
              */
 
-            Console.WriteLine($"Looking for {GlobalSettings.Default.ProcessName}...");
+            Log($"Looking for {GlobalSettings.Default.ProcessName}...");
             var found = false;
             var shouldExit = false;
             while (!found)
@@ -44,7 +52,7 @@ namespace ThemeParkWorldRPC
                 found = Memory.Attach(GlobalSettings.Default.ProcessName);
                 Thread.Sleep(GlobalSettings.Default.UpdateDelay);
             }
-            Console.WriteLine($"Found {GlobalSettings.Default.ProcessName}.");
+            Log($"Found {GlobalSettings.Default.ProcessName}.");
 
             while (!shouldExit)
             {
@@ -120,9 +128,9 @@ namespace ThemeParkWorldRPC
             }, (res) =>
             {
                 if (res == Discord.Result.Ok)
-                    Console.WriteLine("Set activity.");
+                    Log("Set activity.");
                 else
-                    Console.WriteLine($"Set activity failed: {res}");
+                    Log($"Set activity failed: {res}");
             });
         }
     }
